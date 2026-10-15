@@ -1,0 +1,33 @@
+# Local environment and secrets
+.env
+.env.*
+!.env.example
+*.pem
+*.key
+*.p12
+*.pfx
+
+# Home Assistant configuration, runtime data, and backups
+**/.storage/
+**/secrets.yaml
+**/configuration.yaml
+**/automations.yaml
+**/scripts.yaml
+**/scenes.yaml
+**/home-assistant_v2.db*
+**/home-assistant.log*
+**/backups/
+*.tar
+*.tar.gz
+*.zip
+
+# Python artifacts
+__pycache__/
+*.py[cod]
+.pytest_cache/
+
+# Editor and OS artifacts
+.vscode/
+.idea/
+.DS_Store
+Thumbs.db
