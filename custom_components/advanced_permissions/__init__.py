@@ -12,10 +12,13 @@ import voluptuous as vol
 from homeassistant.components import panel_custom, websocket_api
 from homeassistant.components.http import StaticPathConfig
 from homeassistant.core import HomeAssistant
+from homeassistant.helpers import config_validation as cv
 from homeassistant.helpers.storage import Store
 
 from .const import DOMAIN, STORAGE_KEY, STORAGE_VERSION
 from .rules import validate_rule_store
+
+CONFIG_SCHEMA = cv.empty_config_schema(DOMAIN)
 
 
 @websocket_api.websocket_command(

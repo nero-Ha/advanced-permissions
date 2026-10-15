@@ -4,7 +4,7 @@
   "version": "0.1.0",
   "documentation": "https://github.com/nero-Ha/advanced-permissions",
   "issue_tracker": "https://github.com/nero-Ha/advanced-permissions/issues",
-  "dependencies": [],
+  "dependencies": ["http"],
   "codeowners": ["@nero-Ha"],
   "requirements": [],
   "iot_class": "local_push"
