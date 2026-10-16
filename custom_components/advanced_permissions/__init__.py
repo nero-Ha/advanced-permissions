@@ -9,8 +9,9 @@ from pathlib import Path
 
 import voluptuous as vol
 
-from homeassistant.components import panel_custom, websocket_api
+from homeassistant.components import frontend, panel_custom, websocket_api
 from homeassistant.components.http import StaticPathConfig
+from homeassistant.config_entries import ConfigEntry
 from homeassistant.core import HomeAssistant
 from homeassistant.helpers import config_validation as cv
 from homeassistant.helpers.storage import Store
@@ -70,8 +71,21 @@ async def websocket_save_rules(hass: HomeAssistant, connection, msg: dict) -> No
 
 
 async def async_setup(hass: HomeAssistant, config: dict) -> bool:
+    """Set up the legacy YAML configuration."""
+    return await _async_setup(hass)
+
+
+async def async_setup_entry(hass: HomeAssistant, entry: ConfigEntry) -> bool:
+    """Set up the integration from a UI-created config entry."""
+    return await _async_setup(hass)
+
+
+async def _async_setup(hass: HomeAssistant) -> bool:
     """Set up the panel and policy configuration WebSocket commands."""
     hass.data.setdefault(DOMAIN, {})
+    if hass.data[DOMAIN].get("loaded"):
+        return True
+
     hass.data[DOMAIN]["store"] = Store(hass, STORAGE_VERSION, STORAGE_KEY)
     websocket_api.async_register_command(hass, websocket_get_rules)
     websocket_api.async_register_command(hass, websocket_save_rules)
@@ -93,4 +107,15 @@ async def async_setup(hass: HomeAssistant, config: dict) -> bool:
         sidebar_icon="mdi:shield-account",
         require_admin=True,
     )
+    hass.data[DOMAIN]["loaded"] = True
+    return True
+
+
+async def async_unload_entry(hass: HomeAssistant, entry: ConfigEntry) -> bool:
+    """Remove the panel when the UI config entry is unloaded."""
+    if hass.data.get(DOMAIN, {}).get("loaded"):
+        frontend.async_remove_panel(
+            hass, "advanced-permissions", warn_if_unknown=False
+        )
+        hass.data[DOMAIN]["loaded"] = False
     return True
