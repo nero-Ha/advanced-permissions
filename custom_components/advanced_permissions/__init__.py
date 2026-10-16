@@ -88,7 +88,7 @@ async def async_setup(hass: HomeAssistant, config: dict) -> bool:
         hass,
         webcomponent_name="advanced-permissions-panel",
         frontend_url_path="advanced-permissions",
-        module_url="/advanced_permissions/panel.js?v=0.1.0",
+        module_url="/advanced_permissions/panel.js?v=0.1.1",
         sidebar_title="Permissions",
         sidebar_icon="mdi:shield-account",
         require_admin=True,
