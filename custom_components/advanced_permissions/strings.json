@@ -1,0 +1,13 @@
+{
+  "config": {
+    "step": {
+      "user": {
+        "title": "Advanced Permissions",
+        "description": "Add the Advanced Permissions development preview. Permission rules are not enforced by Home Assistant."
+      }
+    },
+    "abort": {
+      "already_configured": "Advanced Permissions is already configured."
+    }
+  }
+}
