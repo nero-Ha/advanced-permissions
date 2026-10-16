@@ -13,18 +13,11 @@ Advanced Permissions is being prepared as a user interface for Home Assistant's 
 
 Home Assistant's effective permissions are merged from all groups. The most permissive grants win. The owner always has full access. An empty custom policy therefore does not deny access if another assigned group grants it.
 
-## Development installation
+## Installation
 
-1. Copy `custom_components/advanced_permissions` into `<config>/custom_components/advanced_permissions`.
-2. Add the following to `configuration.yaml`:
+Install the repository as a custom integration through HACS, then restart Home Assistant if HACS requests it. In Home Assistant, open **Settings → Devices & services → Add integration**, search for **Advanced Permissions**, and select it. No `configuration.yaml` edit is required. Open **Permissions** as an administrator.
 
-   ```yaml
-   advanced_permissions:
-   ```
-
-3. Restart Home Assistant and open **Permissions** as an administrator.
-
-This is a development-only installation guide. Do not use the current preview to protect a system or remove users' existing groups. A restart of any existing installation is outside this project preparation.
+Existing YAML installations remain supported; do not configure the same integration in both YAML and the UI. This is a development-only preview. Do not use it to protect a system or remove users' existing groups.
 
 ## Development and tests
 
@@ -34,7 +27,7 @@ The isolated tests cover rule-store validation. Run them in a development enviro
 python -m pytest -q tests
 ```
 
-Pytest is not installed in the preparation environment, so the test module has not been executed. A separate manual smoke check passed for one valid rule store and four malformed inputs. JavaScript syntax, compatible Python syntax, JSON manifests, and the Core diff whitespace check passed; these do not establish runtime security.
+The isolated tests cover rule-store validation. These checks do not establish runtime security.
 
 This is a development preview, not a stable release. Do not submit it to the default HACS repository. Before any release, run Home Assistant hassfest and the HACS validation action. GitHub owner metadata is configured for `nero-Ha`. Confirm ownership of the MIT license, add the integration to Home Assistant Brands, and verify the repository against current HACS requirements.
 
